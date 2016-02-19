@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+     
+          <div class="content">
+             
+              <div class="content_find">
+                   <h:panelGroup id="paggesCount">
+                 <p><strong name="pager">#{msg.book_count} #{pager.totalBooksCount}</strong></p></h:panelGroup>
+              </div>
+             
+              <p>
+              <div class="content_pager">
+                 
+                  <h:panelGroup layout="block"  id="pager">
+                    <h:form id="pag" rendered="#{pager.totalBookCount>pager.booksCountOnPage}" styleClass="pager">#{msg.pager}
+                            <ui:repeat value="#{pager.pageNumbers}" var="pageNumber">
+                             <h>
+                            <h:commandLink value="#{pageNumber}" styleClass="#{(pageNumber==selectedPageNumber) ? 'selectedElement':''}">
+                            <f:param name="pageNumber" value="#{pageNumber}"/>
+                            <f:ajax event="click" listener="#{searchController.selectPage()}" render=":booksList @form :lettersForm :pag :pagges    :paggesCount" />
+                            </h:commandLink>
+                                </h>
+                        </ui:repeat>
+                    </h:form>
+                        </h:panelGroup>
+                 
+              </div>
+              </p>
+              <div class="content_bookList">
+                   <h:dataTable cellpadding="10px" value="#{searchController.currentBookList}" var="b" columnClasses="tab_img, tab_info, tab_edit"  id="content">
+                        <h:column>
+                        <p>
+                    <h:graphicImage value="/re-library/faces/javax.faces.resource/imgOfBooks/#{b.image}"/>
+                    
+                     
+                      </p>
+                     </h:column>
+                               <h:column>
+                        <div>
+                            <p><strong>#{msg.book_name}:  </strong>
+                                <h:outputText value="#{b.namebook}"/>
+                             <h:inputText value="#{b.namebook}"/>
+                                          </p>
+                            
+                          <p><strong>#{msg.author_name}:  </strong>
+                              <h:outputText value="#{b.author}"/>
+                              <h:inputText value="#{b.author}" />
+                          </p>
+                          
+                            <p><strong>#{msg.pageCount}:  </strong>
+                                <h:outputText value="#{b.pagecount}" />
+                              <h:inputText value="#{b.pagecount}" /></p>
+                            <p><strong>#{msg.PublishDate}:  </strong>
+                            <h:outputText value="#{b.publishDate}"/>
+                              <h:inputText value="#{b.publishDate}"/>
+                            </p>
+                            <p><strong>#{msg.ISBN}:  </strong>
+                            <h:outputText value="#{b.isbn}"/>
+                              <h:inputText value="#{b.isbn}"/></p>
+                             <p><h:graphicImage library="img" name="book.png"/>
+                                 
+                                <h:outputLink styleClass="content_link" value="#{request.contextPath}/SavePdf?id=#{b.idBook}" target="_blank">
+                                    <h:outputText value="#{msg.read}" />
+                                    <f:param name="id" value="#{b.idBook}"/>
+                                 <f:param name="save" value="false"/>
+                                </h:outputLink></p>
+                                <h:graphicImage library="img" name="download.png"/>
+                                
+                                <h:outputLink styleClass="download_link" value="#{request.contextPath}/SavePdf" target="_blank">
+                                    <h:outputText value="#{msg.download}"/>
+                                    <f:param name="id" value="#{b.idBook}"/>
+                                    <f:param name="filename" value="#{b.namebook}"/>
+                                    <f:param name="save" value="true"/>
+                                </h:outputLink>
+                        </div>
+                    </h:column>
+                          <h:column>
+                       
+                             
+                <h:form id="booksForm">
+                    <h:panelGroup id="adminTools" ><p>
+                        <h:commandLink >
+                            <h:outputText value="#{msg.add}"/>
+                            <f:ajax execute="@form" render="@form :bookList"/>
+                                          
+                        </h:commandLink>
+                        </p>
+                        <p>
+                        <h:commandLink >
+                            <h:outputText value="#{msg.edit}" />
+                            <f:ajax  execute="@form" render="@form :bookList"/>
+                                          
+                        </h:commandLink>   
+                        </p>
+                    </h:panelGroup>
+                </h:form>
+                       </h:column>
+                           
+                  </h:dataTable>
+              
+             </div>
+                <p>
+              <div class="content_pager">
+                   
+                  <h:panelGroup layout="block">
+                    <h:form  rendered="#{pager.totalBooksCount>pager.booksOnPage}" styleClass="pager">#{msg.pager}
+                            <ui:repeat value="#{pager.pageNumbers}" var="pageNumber">
+                             
+                            <h:commandLink value="#{pageNumber}" styleClass="#{(pageNumber==selectedPageNumber) ? 'selectedElement':''}">
+                            <f:param name="pageNumber" value="#{pageNumber}"/>
+                            <f:ajax event="click" listener="#{searchController.selectPage()}" render=":booksList @form :lettersForm :pag :pagges    :paggesCount" />
+                            </h:commandLink>
+                                
+                        </ui:repeat>
+                    </h:form>
+                        </h:panelGroup>
+                 
+              </div>
+              </p>
+       
+          </div>              
+    </h:body>
+</html>
+

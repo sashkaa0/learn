@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div class="subtitle">
+        <div class="subtitle_letters" id="lettersForm">
+                <h:form>
+                    <ui:repeat value="#{searchController.letters}" var="letters">
+                        <h>
+                        <h:commandLink  value="#{letters}">
+                            <f:param name="letter" value="#{letters}"/>
+                            <f:ajax event="click" listener="#{searchController.fillBooksByLetter()}" render=":booksList @form :pagessCount:lettersForm :pagges  :middle :middle1 :pagess1 :pagess2 "/>
+                        </h:commandLink>
+                        </h>
+                        </ui:repeat>  
+                </h:form>
+            </div>
+        <div class="subtitle_search_div">
+                 <h:form>
+                    <h:inputText id="search_string" styleClass="search_string" value="#{searchController.searchString}" valueChangeListener="#{searchController.searchStringChanged}">
+                   
+                        <f:ajax event="change"/>
+                    </h:inputText>
+                    <h:commandButton value="#{msg.search}" styleClass="search_button">
+                        <f:ajax execute="@form" listener="#{searchController.fillBooksBySearch()}" render=":bookForm:booksList @form :lettersForm :pagess :pagessCount" />
+                    </h:commandButton>
+                </h:form>
+                <h:form styleClass="search_type">
+                    <h:selectOneMenu value="#{searchController.searchType}" valueChangeListener="#{searchController.searchTypeChanged}">
+                        <f:selectItems value="#{searchTypeController.searchList}"  />
+                        
+                        <f:ajax event="change"/>
+                    </h:selectOneMenu>
+                </h:form>
+            </div>
+            </div>
+    </h:body>
+</html>
+

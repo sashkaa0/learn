@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+          <h:outputStylesheet library="css" name="style_main.css"  />
+         
+            
+    </h:head>
+    <h:body>
+        
+        <div class="HEAD">
+        <div class="first">
+            <div class="head_logo">
+                <h:graphicImage library='img' name="lib.png"/>
+                
+            </div>
+            <div class="head_desor">
+                <h3>
+                   #{msg['welcome_title']}
+                </h3>
+            </div>
+        </div>
+            
+            <div class="second">
+                
+            <div class="head_welcome" styleClass="exit_link">
+               <ui:include src="/templates/locale.xhtml"/>
+               </div>
+            <div class="head_links">
+                <h:form>
+                    <h style="float: left;">#{msg.welcome}, #{user.username} 
+                    <h:commandLink action="#{loginController.exit()}" value="#{msg.exit}" />
+                    <h:commandLink action="#{localeChanger.changeLocale('ua')}"></h:commandLink></h>
+                </h:form>
+            </div>
+            
+            </div>
+                
+        </div>
+    </h:body>
+</html>
+

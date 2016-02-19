@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 ??????. 2016 15:34:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entity.Book" table="book" catalog="relibrary" optimistic-lock="version">
+        <id name="idBook" type="java.lang.Integer">
+            <column name="id_book" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="author" class="Entity.Author" fetch="select">
+            <column name="id_author" />
+        </many-to-one>
+        <many-to-one name="genre" class="Entity.Genre" fetch="select">
+            <column name="id_genre" />
+        </many-to-one>
+        <many-to-one name="publisher" class="Entity.Publisher" fetch="select">
+            <column name="id_publisher" />
+        </many-to-one>
+        <property name="namebook" type="string">
+            <column name="namebook" length="45" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="45" />
+        </property>
+        <property name="pagecount" type="java.lang.Integer">
+            <column name="pagecount" />
+        </property>
+        <property name="isbn" type="string">
+            <column name="isbn" length="45" />
+        </property>
+        <property name="publishDate" type="date">
+            <column name="publishDate" length="10" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

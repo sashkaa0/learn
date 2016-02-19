@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 ??????. 2016 15:34:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entity.Author" table="author" catalog="relibrary" optimistic-lock="version">
+        <id name="idAuthor" type="int">
+            <column name="id_author" />
+            <generator class="assigned" />
+        </id>
+        <property name="fio" type="string">
+            <column name="fio" length="45" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" length="10" />
+        </property>
+        <set name="books" table="book" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_author" />
+            </key>
+            <one-to-many class="Entity.Book" />
+        </set>
+    </class>
+</hibernate-mapping>
